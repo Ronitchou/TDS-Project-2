@@ -11,7 +11,7 @@ def unzip_folder(zip_path):
 
     if not zipfile.is_zipfile(zip_path):
         # Create a temporary directory inside /data/tmp_uploads
-        base_tmp_dir = Path("/data/tmp_uploads")
+        base_tmp_dir = Path("/tmp_uploads")
         os.makedirs(base_tmp_dir, exist_ok=True)
         temp_dir = Path(tempfile.mkdtemp(dir=base_tmp_dir))
         temp_file_path = temp_dir / zip_path.name
@@ -19,7 +19,7 @@ def unzip_folder(zip_path):
         return zip_path,[temp_file_path]
 
     # Create a temporary directory inside /data/tmp_uploads
-    base_tmp_dir = Path("/data/tmp_uploads")
+    base_tmp_dir = Path("/tmp_uploads")
     os.makedirs(base_tmp_dir, exist_ok=True)
     extract_to = Path(tempfile.mkdtemp(dir=base_tmp_dir))
 
