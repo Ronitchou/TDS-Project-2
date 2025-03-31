@@ -17,7 +17,7 @@ app = Flask(__name__)
 SECRET_PASSWORD = os.getenv("SECRET_PASSWORD")
 
 
-@app.route("/", methods=["POST"])
+@app.route("/api", methods=["POST"])
 def process_file():
     question = request.form.get("question")
     file = request.files.get("file")  # Get the uploaded file (optional)
@@ -64,4 +64,4 @@ def redeploy():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port="5000", debug=True)
