@@ -30,7 +30,7 @@ def process_file():
         matched_function, matched_description = find_similar_question(question)
 
         if file:
-            base_tmp_dir = Path("tmp_uploads")
+            base_tmp_dir = Path("./tmp_uploads")
             base_tmp_dir.mkdir(exist_ok=True)
             temp_file_path = base_tmp_dir / file.filename
             file.save(temp_file_path)
