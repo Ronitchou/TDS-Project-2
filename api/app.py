@@ -46,10 +46,18 @@ def process_file():
             parameters = []
 
         solution_function = functions_dict.get(
-            matched_function, lambda params: "No matching function found"
+            matched_function, lambda *args, **kwargs: "No matching function found"
         )
 
-        if file:
+        # Get how many arguments the function actually takes
+        import inspect
+        sig = inspect.signature(solution_function)
+        num_params = len(sig.parameters)
+
+        # Call based on function signature
+        if num_params == 0:
+            answer = solution_function()
+        elif file and num_params >= 1:
             answer = solution_function(temp_dir, *parameters)
         else:
             answer = solution_function(*parameters)
