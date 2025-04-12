@@ -37,19 +37,23 @@ def process_file():
 
             temp_dir, file_names = unzip_folder(temp_file_path)
             tmp_dir = temp_dir  # Update tmp_dir if a file is uploaded
-            parameters = extract_parameters(
-                str(question),
-                function_definitions_llm=function_definitions_objects_llm[matched_function],
-            )
+        parameters = extract_parameters(
+            str(question),
+            function_definitions_llm=function_definitions_objects_llm[matched_function],
+        )
 
-            solution_function = functions_dict.get(
-                str(matched_function), lambda parameters: "No matching function found"
-            )
+        if parameters is None:
+            parameters = []
 
-            answer = solution_function(file, *parameters)
+        solution_function = functions_dict.get(
+            matched_function, lambda params: "No matching function found"
+        )
+
+        if file:
+            answer = solution_function(temp_dir, *parameters)
         else:
-            print(type(parameters), parameters)
             answer = solution_function(*parameters)
+
         return jsonify({"answer": answer})
     except Exception as e:
         print(e,"this is the error")
